@@ -52,11 +52,11 @@
 <summary><h3>🏃‍♂️ Sprint 3 - Performans Takibi, AI Asistan, Temel Altyapı ve Not Yönetimi</h3></summary>
 
 ### 🎯 Sprint Hedefi
-**[Sprint hedefini buraya yazın]**
+**Frontend tasarımı tamamlanacak. AI entegrasyonu ve authentication kurulumları tamamlanacak. Temel not tutma işlevi eklenecek.**
 
 ### 📊 Sprint Bilgileri
-- **📅 Sprint Süresi:** [Başlangıç] - [Bitiş]
-- **🎯 Hedef Puan:** `___` Puan
+- **📅 Sprint Süresi:** 21.07.2025 - 03.08.2025
+- **🎯 Hedef Puan:** `34` Puan
 - **✅ Tamamlanan Puan:** `___` Puan
 - **📈 Tamamlanma Oranı:** `___%`
 
