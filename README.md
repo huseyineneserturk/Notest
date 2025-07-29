@@ -38,9 +38,9 @@
 | 🏠 **Temel Altyapı** | Firebase kurulumu, auth sistemi | `6` | Sprint 3 |
 | 📝 **Not Yönetimi** | Not oluşturma, düzenleme, kaydetme | `8` | Sprint 3 |
 | 🧠 **Quiz Sistemi** | Gemini API entegrasyonu, quiz oluşturma | `6` | Sprint 3 |
-| 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `4` | Sprint 4 |
-| 🤖 **AI Asistan** | Özetleme ve sohbet özellikleri | `6` | Sprint 4 |
-| 🎨 **UI/UX İyileştirme** | Tasarım optimizasyonu | `4` | Sprint 4 |
+| 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `4` | Sprint 3 |
+| 🤖 **AI Asistan** | Özetleme ve sohbet özellikleri | `6` | Sprint 3 |
+| 🎨 **UI/UX İyileştirme** | Tasarım optimizasyonu | `4` | Sprint 3 |
 
 **Toplam Backlog Puanı:** `34` Puan
 
