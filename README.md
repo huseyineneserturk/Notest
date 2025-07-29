@@ -1,12 +1,9 @@
 # 📚 Notest - Gemini Not ve Quiz Asistanı
 
 ## 👥 Takım Bilgileri
-**Takım Adı:** [Takım Adı]
-- 👨‍💼 **[İsim]:** Scrum Master / Product Owner / Developer
-- 👩‍💻 **[İsim]:** Developer
-- 👨‍💻 **[İsim]:** Developer
-- 👩‍💻 **[İsim]:** Developer
-- 🎯 **[İsim]:** [Rol]
+**Takım Adı:** AI-DATA-138
+- 👨‍💼 **Hüseyin Enes ERTÜRK:** Scrum Master / Developer
+- 👩‍💻 **Artun ŞEKER:** Developer
 
 ---
 
