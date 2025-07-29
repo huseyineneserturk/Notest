@@ -35,14 +35,14 @@
 ### 🔥 Öncelik Sırası
 | **Özellik** | **Açıklama** | **Puan** | **Sprint** |
 |-------------|--------------|----------|------------|
-| 🏠 **Temel Altyapı** | Firebase kurulumu, auth sistemi | `_` | Sprint 1 |
-| 📝 **Not Yönetimi** | Not oluşturma, düzenleme, kaydetme | `_` | Sprint 1 |
-| 🧠 **Quiz Sistemi** | Gemini API entegrasyonu, quiz oluşturma | `_` | Sprint 2 |
-| 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `_` | Sprint 2 |
-| 🤖 **AI Asistan** | Özetleme ve sohbet özellikleri | `_` | Sprint 3 |
-| 🎨 **UI/UX İyileştirme** | Tasarım optimizasyonu, responsivlik | `_` | Sprint 4 |
+| 🏠 **Temel Altyapı** | Firebase kurulumu, auth sistemi | `6` | Sprint 3 |
+| 📝 **Not Yönetimi** | Not oluşturma, düzenleme, kaydetme | `8` | Sprint 3 |
+| 🧠 **Quiz Sistemi** | Gemini API entegrasyonu, quiz oluşturma | `6` | Sprint 3 |
+| 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `4` | Sprint 4 |
+| 🤖 **AI Asistan** | Özetleme ve sohbet özellikleri | `6` | Sprint 4 |
+| 🎨 **UI/UX İyileştirme** | Tasarım optimizasyonu | `4` | Sprint 4 |
 
-**Toplam Backlog Puanı:** `___` Puan
+**Toplam Backlog Puanı:** `34` Puan
 
 ---
 
