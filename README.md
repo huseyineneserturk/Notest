@@ -127,11 +127,6 @@
 - **👥 Aktif Takım Üyesi Sayısı:** `_`
 - **🔥 En Başarılı Sprint:** Sprint `_`
 
-### 🏆 Başarılar
-- **[Önemli başarı 1]**
-- **[Önemli başarı 2]**
-- **[Önemli başarı 3]**
-
 ### 📚 Öğrenilenler
 - **[Teknik öğrenme]**
 - **[Süreç öğrenmesi]**
@@ -148,8 +143,6 @@
 
 ### 🔗 Önemli Linkler
 - **🌐 Canlı Demo:** [Link]
-- **📱 GitHub Repository:** [Link]
-- **🎨 Figma Tasarım:** [Link]
 - **📋 Miro/Trello Board:** [Link]
 - **📹 Final Sunumu:** [Link]
 
@@ -178,10 +171,9 @@
 
 ## 📞 İletişim
 
-**🏢 Takım:** [Takım Adı]  
-**📧 E-posta:** [E-posta]  
-**💬 Discord/Slack:** [Kanal]  
-**📅 Son Güncelleme:** [Tarih]
+**🏢 Takım:** AI-DATA-138  
+**📧 E-posta:** huseyineneserturk@gmail.com
+**📅 Son Güncelleme:** 03.08.2025
 
 ---
 
