@@ -49,7 +49,7 @@
 ## 🏃‍♂️ Sprint Detayları
 
 <details>
-<summary><h3>🏃‍♂️ Sprint 3 - Performans Takibi, AI Asistan, Temel Altyapı ve Not Yönetimi</h3></summary>
+<summary><h3>🏃‍♂️ Sprint 3 - Performans Takibi, AI Asistan, Temel Altyapı ve Not Yönetimi, UI/UX İyileştirme, Finalizasyon, Quiz Sistemi ve Gemini Entegrasyonu</h3></summary>
 
 ### 🎯 Sprint Hedefi
 **Frontend tasarımı tamamlanacak. AI entegrasyonu ve authentication kurulumları tamamlanacak. Temel not tutma işlevi eklenecek.**
@@ -112,75 +112,6 @@
 - **[İyileştirme önerisi]**
 
 #### 🎯 Aksiyonlar (Sonraki Sprint için)
-- **[Aksiyon öğesi]**
-- **[Aksiyon öğesi]**
-
-</details>
-
-<details>
-<summary><h3>🏃‍♂️ Sprint 4 - UI/UX İyileştirme, Finalizasyon, Quiz Sistemi ve Gemini Entegrasyonu</h3></summary>
-
-### 🎯 Sprint Hedefi
-**[Sprint hedefini buraya yazın]**
-
-### 📊 Sprint Bilgileri
-- **📅 Sprint Süresi:** [Başlangıç] - [Bitiş]
-- **🎯 Hedef Puan:** `___` Puan
-- **✅ Tamamlanan Puan:** `___` Puan
-- **📈 Tamamlanma Oranı:** `___%`
-
-### 📋 Sprint Backlog
-
-#### 🔥 Yüksek Öncelik
-- [ ] **[Görev 1]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-- [ ] **[Görev 2]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-#### ⚡ Orta Öncelik
-- [ ] **[Görev 3]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-### 📱 Daily Scrum
-**🗣️ Daily Scrum toplantıları:** [Platform/Zaman]
-
-📎 **Daily Scrum Notları:** [Dosya linki]
-
-### 🔍 Sprint Review
-
-#### ✅ Tamamlanan İşler
-- **[Tamamlanan özellik/görev]**
-- **[Tamamlanan özellik/görev]**
-
-#### ❌ Tamamlanamayan İşler
-- **[Tamamlanamayan görev]** - **Sebep:** [Açıklama]
-
-#### 🎯 Demo
-**📹 Demo Linki:** [Link]
-**📸 Ekran Görüntüleri:** [Klasör/Link]
-
-#### 👥 Sprint Review Katılımcıları
-- **[İsim 1]**
-- **[İsim 2]**
-
-### 🔄 Sprint Retrospective
-
-#### ✅ İyi Giden Şeyler
-- **[Pozitif geri bildirim]**
-- **[Pozitif geri bildirim]**
-
-#### ❌ İyileştirilebilir Alanlar
-- **[İyileştirme önerisi]**
-- **[İyileştirme önerisi]**
-
-#### 🎯 Aksiyonlar (Gelecek Projeler için)
 - **[Aksiyon öğesi]**
 - **[Aksiyon öğesi]**
 
