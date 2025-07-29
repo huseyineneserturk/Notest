@@ -35,7 +35,7 @@
 ### 🔥 Öncelik Sırası
 | **Özellik** | **Açıklama** | **Puan** | **Sprint** |
 |-------------|--------------|----------|------------|
-| 🏠 **Temel Altyapı** | Firebase kurulumu, auth sistemi | `6` | Sprint 3 |
+| 🏠 **Temel Altyapı** | Supabase kurulumu, auth sistemi | `6` | Sprint 3 |
 | 📝 **Not Yönetimi** | Not oluşturma, düzenleme, kaydetme | `8` | Sprint 3 |
 | 🧠 **Quiz Sistemi** | Gemini API entegrasyonu, quiz oluşturma | `6` | Sprint 3 |
 | 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `4` | Sprint 3 |
