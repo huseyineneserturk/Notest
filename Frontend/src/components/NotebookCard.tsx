@@ -17,12 +17,14 @@ interface Notebook {
   id: string;
   title: string;
   description?: string;
-  updatedAt: string;
+  updated_at: string;
+  category?: string;
+  stats?: {
   noteCount: number;
   quizCount?: number;
   lastQuizScore?: number;
-  category?: string;
   progress?: number;
+  };
 }
 
 const NotebookCard = ({ notebook }: { notebook: Notebook }) => {
@@ -58,9 +60,9 @@ const NotebookCard = ({ notebook }: { notebook: Notebook }) => {
           >
             {notebook.category || 'General'}
           </Badge>
-          {notebook.lastQuizScore && (
+          {notebook.stats?.lastQuizScore && (
             <Text fontSize="sm" fontWeight="600" color="gray.600">
-              {notebook.lastQuizScore}%
+              {notebook.stats.lastQuizScore}%
             </Text>
           )}
         </HStack>
@@ -92,29 +94,29 @@ const NotebookCard = ({ notebook }: { notebook: Notebook }) => {
         <HStack spacing={4} w="full" fontSize="sm" color="gray.500">
           <HStack spacing={1}>
             <BookOpen size={14} />
-            <Text>{notebook.noteCount} notes</Text>
+            <Text>{notebook.stats?.noteCount || 0} notes</Text>
           </HStack>
-          {notebook.quizCount !== undefined && (
+          {notebook.stats?.quizCount !== undefined && (
             <HStack spacing={1}>
               <Target size={14} />
-              <Text>{notebook.quizCount} quizzes</Text>
+              <Text>{notebook.stats.quizCount} quizzes</Text>
             </HStack>
           )}
         </HStack>
 
         {/* Progress Bar */}
-        {notebook.progress !== undefined && (
+        {notebook.stats?.progress !== undefined && (
           <Box w="full">
             <Flex justify="space-between" mb={2}>
               <Text fontSize="xs" color="gray.500" fontWeight="500">
                 Progress
               </Text>
               <Text fontSize="xs" color="gray.600" fontWeight="600">
-                {notebook.progress}%
+                {notebook.stats.progress}%
               </Text>
             </Flex>
             <Progress
-              value={notebook.progress}
+              value={notebook.stats.progress}
               size="sm"
               colorScheme="gray"
               bg={useColorModeValue('gray.100', 'gray.600')}
@@ -129,7 +131,7 @@ const NotebookCard = ({ notebook }: { notebook: Notebook }) => {
         <HStack justify="space-between" w="full">
           <HStack spacing={1} fontSize="xs" color="gray.400">
             <Clock size={12} />
-            <Text>Updated {notebook.updatedAt}</Text>
+            <Text>Updated {notebook.updated_at}</Text>
           </HStack>
         </HStack>
 

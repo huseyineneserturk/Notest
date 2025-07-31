@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Box, Center, VStack, Text, Button, useColorModeValue } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Home } from 'lucide-react';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
@@ -40,6 +42,7 @@ const NotFoundPage = () => (
 
 export function App() {
   return (
+    <AuthProvider>
     <Router>
       <Box width="100%" minHeight="100vh">
         <Routes>
@@ -49,9 +52,9 @@ export function App() {
           <Route path="/signup" element={<AuthPage isLogin={false} />} />
           
           {/* Protected Routes (Dashboard, Notebook, Performance) */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/notebook/:id" element={<NotebookView />} />
-          <Route path="/performance" element={<PerformanceHistory />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/notebook/:id" element={<ProtectedRoute><NotebookView /></ProtectedRoute>} />
+            <Route path="/performance" element={<ProtectedRoute><PerformanceHistory /></ProtectedRoute>} />
           
           {/* Redirects */}
           <Route path="/home" element={<Navigate to="/" replace />} />
@@ -62,5 +65,6 @@ export function App() {
         </Routes>
       </Box>
     </Router>
+    </AuthProvider>
   );
 }
