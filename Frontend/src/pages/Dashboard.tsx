@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Button, 
@@ -23,12 +23,17 @@ import {
   Input,
   Textarea,
   useDisclosure,
-  Progress
+  Progress,
+  useToast,
+  Spinner,
+  Center
 } from '@chakra-ui/react';
 import { Plus, Grid, List, BookOpen, Clock, Target, TrendingUp, ArrowUp, ArrowDown } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import Header from '../components/Header';
 import NotebookCard from '../components/NotebookCard';
+import { useAuth } from '../contexts/AuthContext';
+import { notebooksApi, ApiError } from '../utils/api';
 
 const StatsCard = ({ icon, title, value, subtitle, trend }: {
   icon: any;
@@ -82,57 +87,100 @@ const Dashboard = () => {
   const [viewMode, setViewMode] = useState('grid');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isCreating, setIsCreating] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [notebooks, setNotebooks] = useState<any[]>([]);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: ''
+  });
 
-  // Enhanced mock data for notebooks
-  const notebooks = [
-    {
-      id: '1',
-      title: 'Mathematics 101',
-      description: 'Algebra, Trigonometry, and Calculus fundamentals',
-      updatedAt: '2023-05-15',
-      noteCount: 12,
-      quizCount: 8,
-      lastQuizScore: 85,
-      category: 'Mathematics',
-      progress: 78
-    },
-    {
-      id: '2',
-      title: 'Physics Fundamentals',
-      description: 'Classical mechanics, thermodynamics, and waves',
-      updatedAt: '2023-05-10',
-      noteCount: 8,
-      quizCount: 5,
-      lastQuizScore: 92,
-      category: 'Science',
-      progress: 65
-    },
-    {
-      id: '3',
-      title: 'Web Development',
-      description: 'HTML, CSS, JavaScript, and React fundamentals',
-      updatedAt: '2023-05-05',
-      noteCount: 15,
-      quizCount: 12,
-      lastQuizScore: 88,
-      category: 'Technology',
-      progress: 90
+  const { user } = useAuth();
+  const toast = useToast();
+
+  useEffect(() => {
+    fetchNotebooks();
+  }, []);
+
+  const fetchNotebooks = async () => {
+    try {
+      setIsLoading(true);
+      const response = await notebooksApi.getAll();
+      setNotebooks(response.notebooks);
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to fetch notebooks';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
-  ];
-
-  const handleCreateNotebook = async () => {
-    setIsCreating(true);
-    setTimeout(() => {
-      setIsCreating(false);
-      onClose();
-    }, 1500);
   };
 
-  const totalNotes = notebooks.reduce((sum, notebook) => sum + notebook.noteCount, 0);
-  const totalQuizzes = notebooks.reduce((sum, notebook) => sum + notebook.quizCount, 0);
-  const averageScore = Math.round(
-    notebooks.reduce((sum, notebook) => sum + notebook.lastQuizScore, 0) / notebooks.length
-  );
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleCreateNotebook = async () => {
+    if (!formData.title.trim()) {
+      toast({
+        title: 'Error',
+        description: 'Please enter a notebook title',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+    setIsCreating(true);
+      const response = await notebooksApi.create(formData);
+      
+      toast({
+        title: 'Success',
+        description: 'Notebook created successfully',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+
+      setNotebooks(prev => [response.notebook, ...prev]);
+      setFormData({ title: '', description: '', category: '' });
+      onClose();
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to create notebook';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const totalNotes = notebooks.reduce((sum, notebook) => sum + (notebook.stats?.noteCount || 0), 0);
+  const totalQuizzes = notebooks.reduce((sum, notebook) => sum + (notebook.stats?.quizCount || 0), 0);
+  const averageScore = notebooks.length > 0 ? Math.round(
+    notebooks.reduce((sum, notebook) => sum + (notebook.stats?.lastQuizScore || 0), 0) / notebooks.length
+  ) : 0;
 
   return (
     <Box width="100%" minHeight="100vh" bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -144,7 +192,7 @@ const Dashboard = () => {
           <VStack spacing={4} align="start">
             <VStack spacing={2} align="start">
               <Heading as="h1" size="xl" color="gray.800" fontWeight="700">
-                Welcome back! 👋
+                Welcome back, {user?.displayName}! 👋
               </Heading>
               <Text fontSize="lg" color="gray.600">
                 Continue your learning journey with your personalized notebooks.
@@ -213,11 +261,34 @@ const Dashboard = () => {
             </Flex>
 
             {/* Notebooks Grid */}
+            {isLoading ? (
+              <Center py={20}>
+                <Spinner size="xl" color="gray.800" />
+              </Center>
+            ) : notebooks.length > 0 ? (
             <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={6}>
               {notebooks.map((notebook) => (
                 <NotebookCard key={notebook.id} notebook={notebook} />
               ))}
             </SimpleGrid>
+            ) : (
+              <Center py={20}>
+                <VStack spacing={4}>
+                  <Text fontSize="lg" color="gray.600">
+                    No notebooks yet. Create your first notebook to get started!
+                  </Text>
+                  <Button
+                    leftIcon={<Plus size={16} />}
+                    bg="gray.800"
+                    color="white"
+                    _hover={{ bg: 'gray.700' }}
+                    onClick={onOpen}
+                  >
+                    Create Your First Notebook
+                  </Button>
+                </VStack>
+              </Center>
+            )}
           </Box>
         </VStack>
       </Container>
@@ -233,6 +304,9 @@ const Dashboard = () => {
               <FormControl isRequired>
                 <FormLabel>Notebook Title</FormLabel>
                 <Input
+                  name="title"
+                  value={formData.title}
+                  onChange={handleInputChange}
                   placeholder="e.g., Advanced Mathematics"
                   _focus={{ borderColor: 'gray.500' }}
                 />
@@ -240,8 +314,21 @@ const Dashboard = () => {
               <FormControl>
                 <FormLabel>Description</FormLabel>
                 <Textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
                   placeholder="Brief description of what you'll be studying..."
                   rows={3}
+                  _focus={{ borderColor: 'gray.500' }}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Category</FormLabel>
+                <Input
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Mathematics, Science, Technology"
                   _focus={{ borderColor: 'gray.500' }}
                 />
               </FormControl>

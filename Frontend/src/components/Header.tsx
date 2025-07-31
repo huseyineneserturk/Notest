@@ -10,16 +10,45 @@ import {
   MenuList, 
   Avatar,
   Container,
-  HStack
+  HStack,
+  Text,
+  useToast
 } from '@chakra-ui/react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useAuth();
+  const toast = useToast();
+  
   // Dashboard sayfalarında kullanıcı menüsünü göster
-  const showUserMenu = ['/dashboard', '/performance', '/notebook/'].some(path => 
+  const showUserMenu = isAuthenticated && ['/dashboard', '/performance', '/notebook/'].some(path => 
     location.pathname.startsWith(path)
   );
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+      toast({
+        title: 'Logged out',
+        description: 'You have been successfully logged out.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to logout. Please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Box 
@@ -67,6 +96,7 @@ const Header = () => {
                 <MenuButton 
                   as={Avatar} 
                   size="sm" 
+                  name={user?.displayName}
                   bg="gray.400" 
                   color="white"
                   cursor="pointer"
@@ -102,8 +132,7 @@ const Header = () => {
                     Settings
                   </MenuItem>
                   <MenuItem 
-                    as={RouterLink} 
-                    to="/"
+                    onClick={handleLogout}
                     _hover={{ bg: useColorModeValue('red.50', 'red.900') }}
                     color={useColorModeValue('red.600', 'red.300')}
                   >

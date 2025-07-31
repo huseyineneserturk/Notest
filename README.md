@@ -1,12 +1,9 @@
 # 📚 Notest - Gemini Not ve Quiz Asistanı
 
 ## 👥 Takım Bilgileri
-**Takım Adı:** [Takım Adı]
-- 👨‍💼 **[İsim]:** Scrum Master / Product Owner / Developer
-- 👩‍💻 **[İsim]:** Developer
-- 👨‍💻 **[İsim]:** Developer
-- 👩‍💻 **[İsim]:** Developer
-- 🎯 **[İsim]:** [Rol]
+**Takım Adı:** AI-DATA-138
+- 👨‍💼 **Hüseyin Enes ERTÜRK:** Scrum Master / Developer
+- 👩‍💻 **Artun ŞEKER:** Developer
 
 ---
 
@@ -38,102 +35,28 @@
 ### 🔥 Öncelik Sırası
 | **Özellik** | **Açıklama** | **Puan** | **Sprint** |
 |-------------|--------------|----------|------------|
-| 🏠 **Temel Altyapı** | Firebase kurulumu, auth sistemi | `_` | Sprint 1 |
-| 📝 **Not Yönetimi** | Not oluşturma, düzenleme, kaydetme | `_` | Sprint 1 |
-| 🧠 **Quiz Sistemi** | Gemini API entegrasyonu, quiz oluşturma | `_` | Sprint 2 |
-| 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `_` | Sprint 2 |
-| 🤖 **AI Asistan** | Özetleme ve sohbet özellikleri | `_` | Sprint 3 |
-| 🎨 **UI/UX İyileştirme** | Tasarım optimizasyonu, responsivlik | `_` | Sprint 4 |
+| 🏠 **Temel Altyapı** | Supabase kurulumu, auth sistemi | `6` | Sprint 3 |
+| 📝 **Not Yönetimi** | Not oluşturma, düzenleme, kaydetme | `8` | Sprint 3 |
+| 🧠 **Quiz Sistemi** | Gemini API entegrasyonu, quiz oluşturma | `6` | Sprint 3 |
+| 📊 **Sonuç Sistemi** | Quiz sonuçları, performans takibi | `4` | Sprint 3 |
+| 🤖 **AI Asistan** | Özetleme ve sohbet özellikleri | `6` | Sprint 3 |
+| 🎨 **UI/UX İyileştirme** | Tasarım optimizasyonu | `4` | Sprint 3 |
 
-**Toplam Backlog Puanı:** `___` Puan
+**Toplam Backlog Puanı:** `34` Puan
 
 ---
 
 ## 🏃‍♂️ Sprint Detayları
 
 <details>
-<summary><h3>🏃‍♂️ Sprint 1 - Temel Altyapı ve Not Yönetimi</h3></summary>
+<summary><h3>🏃‍♂️ Sprint 3 - Performans Takibi, AI Asistan, Temel Altyapı ve Not Yönetimi, UI/UX İyileştirme, Finalizasyon, Quiz Sistemi ve Gemini Entegrasyonu</h3></summary>
 
 ### 🎯 Sprint Hedefi
-**[Sprint hedefini buraya yazın]**
+**Frontend tasarımı tamamlanacak. AI entegrasyonu ve authentication kurulumları tamamlanacak. Temel not tutma işlevi eklenecek.**
 
 ### 📊 Sprint Bilgileri
-- **📅 Sprint Süresi:** [Başlangıç] - [Bitiş]
-- **🎯 Hedef Puan:** `___` Puan
-- **✅ Tamamlanan Puan:** `___` Puan
-- **📈 Tamamlanma Oranı:** `___%`
-
-### 📋 Sprint Backlog
-
-#### 🔥 Yüksek Öncelik
-- [ ] **[Görev 1]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-- [ ] **[Görev 2]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-#### ⚡ Orta Öncelik
-- [ ] **[Görev 3]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-### 📱 Daily Scrum
-**🗣️ Daily Scrum toplantıları:** [Platform/Zaman]
-
-**📋 Daily Scrum Format:**
-- ✅ **Dün ne yaptım?**
-- 🎯 **Bugün ne yapacağım?**
-- 🚧 **Karşılaştığım engeller var mı?**
-
-📎 **Daily Scrum Notları:** [Dosya linki]
-
-### 🔍 Sprint Review
-
-#### ✅ Tamamlanan İşler
-- **[Tamamlanan özellik/görev]**
-- **[Tamamlanan özellik/görev]**
-
-#### ❌ Tamamlanamayan İşler
-- **[Tamamlanamayan görev]** - **Sebep:** [Açıklama]
-
-#### 🎯 Demo
-**📹 Demo Linki:** [Link]
-**📸 Ekran Görüntüleri:** [Klasör/Link]
-
-#### 👥 Sprint Review Katılımcıları
-- **[İsim 1]**
-- **[İsim 2]**
-
-### 🔄 Sprint Retrospective
-
-#### ✅ İyi Giden Şeyler
-- **[Pozitif geri bildirim]**
-- **[Pozitif geri bildirim]**
-
-#### ❌ İyileştirilebilir Alanlar
-- **[İyileştirme önerisi]**
-- **[İyileştirme önerisi]**
-
-#### 🎯 Aksiyonlar (Sonraki Sprint için)
-- **[Aksiyon öğesi]**
-- **[Aksiyon öğesi]**
-
-</details>
-
-<details>
-<summary><h3>🏃‍♂️ Sprint 2 - Quiz Sistemi ve Gemini Entegrasyonu</h3></summary>
-
-### 🎯 Sprint Hedefi
-**[Sprint hedefini buraya yazın]**
-
-### 📊 Sprint Bilgileri
-- **📅 Sprint Süresi:** [Başlangıç] - [Bitiş]
-- **🎯 Hedef Puan:** `___` Puan
+- **📅 Sprint Süresi:** 21.07.2025 - 03.08.2025
+- **🎯 Hedef Puan:** `34` Puan
 - **✅ Tamamlanan Puan:** `___` Puan
 - **📈 Tamamlanma Oranı:** `___%`
 
@@ -189,144 +112,6 @@
 - **[İyileştirme önerisi]**
 
 #### 🎯 Aksiyonlar (Sonraki Sprint için)
-- **[Aksiyon öğesi]**
-- **[Aksiyon öğesi]**
-
-</details>
-
-<details>
-<summary><h3>🏃‍♂️ Sprint 3 - Performans Takibi ve AI Asistan</h3></summary>
-
-### 🎯 Sprint Hedefi
-**[Sprint hedefini buraya yazın]**
-
-### 📊 Sprint Bilgileri
-- **📅 Sprint Süresi:** [Başlangıç] - [Bitiş]
-- **🎯 Hedef Puan:** `___` Puan
-- **✅ Tamamlanan Puan:** `___` Puan
-- **📈 Tamamlanma Oranı:** `___%`
-
-### 📋 Sprint Backlog
-
-#### 🔥 Yüksek Öncelik
-- [ ] **[Görev 1]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-- [ ] **[Görev 2]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-#### ⚡ Orta Öncelik
-- [ ] **[Görev 3]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-### 📱 Daily Scrum
-**🗣️ Daily Scrum toplantıları:** [Platform/Zaman]
-
-📎 **Daily Scrum Notları:** [Dosya linki]
-
-### 🔍 Sprint Review
-
-#### ✅ Tamamlanan İşler
-- **[Tamamlanan özellik/görev]**
-- **[Tamamlanan özellik/görev]**
-
-#### ❌ Tamamlanamayan İşler
-- **[Tamamlanamayan görev]** - **Sebep:** [Açıklama]
-
-#### 🎯 Demo
-**📹 Demo Linki:** [Link]
-**📸 Ekran Görüntüleri:** [Klasör/Link]
-
-#### 👥 Sprint Review Katılımcıları
-- **[İsim 1]**
-- **[İsim 2]**
-
-### 🔄 Sprint Retrospective
-
-#### ✅ İyi Giden Şeyler
-- **[Pozitif geri bildirim]**
-- **[Pozitif geri bildirim]**
-
-#### ❌ İyileştirilebilir Alanlar
-- **[İyileştirme önerisi]**
-- **[İyileştirme önerisi]**
-
-#### 🎯 Aksiyonlar (Sonraki Sprint için)
-- **[Aksiyon öğesi]**
-- **[Aksiyon öğesi]**
-
-</details>
-
-<details>
-<summary><h3>🏃‍♂️ Sprint 4 - UI/UX İyileştirme ve Finalizasyon</h3></summary>
-
-### 🎯 Sprint Hedefi
-**[Sprint hedefini buraya yazın]**
-
-### 📊 Sprint Bilgileri
-- **📅 Sprint Süresi:** [Başlangıç] - [Bitiş]
-- **🎯 Hedef Puan:** `___` Puan
-- **✅ Tamamlanan Puan:** `___` Puan
-- **📈 Tamamlanma Oranı:** `___%`
-
-### 📋 Sprint Backlog
-
-#### 🔥 Yüksek Öncelik
-- [ ] **[Görev 1]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-- [ ] **[Görev 2]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-#### ⚡ Orta Öncelik
-- [ ] **[Görev 3]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-### 📱 Daily Scrum
-**🗣️ Daily Scrum toplantıları:** [Platform/Zaman]
-
-📎 **Daily Scrum Notları:** [Dosya linki]
-
-### 🔍 Sprint Review
-
-#### ✅ Tamamlanan İşler
-- **[Tamamlanan özellik/görev]**
-- **[Tamamlanan özellik/görev]**
-
-#### ❌ Tamamlanamayan İşler
-- **[Tamamlanamayan görev]** - **Sebep:** [Açıklama]
-
-#### 🎯 Demo
-**📹 Demo Linki:** [Link]
-**📸 Ekran Görüntüleri:** [Klasör/Link]
-
-#### 👥 Sprint Review Katılımcıları
-- **[İsim 1]**
-- **[İsim 2]**
-
-### 🔄 Sprint Retrospective
-
-#### ✅ İyi Giden Şeyler
-- **[Pozitif geri bildirim]**
-- **[Pozitif geri bildirim]**
-
-#### ❌ İyileştirilebilir Alanlar
-- **[İyileştirme önerisi]**
-- **[İyileştirme önerisi]**
-
-#### 🎯 Aksiyonlar (Gelecek Projeler için)
 - **[Aksiyon öğesi]**
 - **[Aksiyon öğesi]**
 
@@ -341,11 +126,6 @@
 - **⏱️ Toplam Süre:** `_` Hafta
 - **👥 Aktif Takım Üyesi Sayısı:** `_`
 - **🔥 En Başarılı Sprint:** Sprint `_`
-
-### 🏆 Başarılar
-- **[Önemli başarı 1]**
-- **[Önemli başarı 2]**
-- **[Önemli başarı 3]**
 
 ### 📚 Öğrenilenler
 - **[Teknik öğrenme]**
@@ -363,8 +143,6 @@
 
 ### 🔗 Önemli Linkler
 - **🌐 Canlı Demo:** [Link]
-- **📱 GitHub Repository:** [Link]
-- **🎨 Figma Tasarım:** [Link]
 - **📋 Miro/Trello Board:** [Link]
 - **📹 Final Sunumu:** [Link]
 
@@ -393,10 +171,9 @@
 
 ## 📞 İletişim
 
-**🏢 Takım:** [Takım Adı]  
-**📧 E-posta:** [E-posta]  
-**💬 Discord/Slack:** [Kanal]  
-**📅 Son Güncelleme:** [Tarih]
+**🏢 Takım:** AI-DATA-138  
+**📧 E-posta:** huseyineneserturk@gmail.com
+**📅 Son Güncelleme:** 03.08.2025
 
 ---
 
