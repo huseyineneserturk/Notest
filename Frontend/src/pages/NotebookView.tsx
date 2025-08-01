@@ -1,37 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, Flex, Grid, GridItem, Heading, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Box, Button, Container, Flex, Grid, GridItem, Heading, Text, useColorModeValue, useDisclosure, useToast, Spinner, Center } from '@chakra-ui/react';
 import { Plus, Brain, MessageSquare, HelpCircle } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import NoteEditor from '../components/NoteEditor';
 import NotesList from '../components/NotesList';
 import QuizModal from '../components/QuizModal';
 import SummaryDrawer from '../components/SummaryDrawer';
 import ChatDrawer from '../components/ChatDrawer';
+import { notebooksApi, notesApi, ApiError } from '../utils/api';
 
 interface Note {
   id: string;
   title: string;
   content: string;
+  notebook_id: string;
+  tags?: string[];
+  word_count?: number;
+  reading_time?: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Notebook {
+  id: string;
+  title: string;
+  description?: string;
+  category?: string;
 }
 
 const NotebookView = () => {
+  const { id: notebookId } = useParams<{ id: string }>();
   const [activeNote, setActiveNote] = useState<Note | null>(null);
-  const [notes, setNotes] = useState([{
-    id: '1',
-    title: 'Introduction to Algebra',
-    content: 'Algebra is a branch of mathematics dealing with symbols and the rules for manipulating those symbols. In elementary algebra, those symbols (today written as Latin and Greek letters) represent quantities without fixed values, known as variables...'
-  }, {
-    id: '2',
-    title: 'Trigonometry Basics',
-    content: 'Trigonometry is a branch of mathematics that studies relationships between side lengths and angles of triangles. The field emerged in the Hellenistic world during the 3rd century BC from applications of geometry to astronomical studies...'
-  }, {
-    id: '3',
-    title: 'Calculus Fundamentals',
-    content: 'Calculus, originally called infinitesimal calculus or "the calculus of infinitesimals", is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations...'
-  }]);
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [notebook, setNotebook] = useState<Notebook | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [localContent, setLocalContent] = useState('');
+  const [saveTimeout, setSaveTimeout] = useState<NodeJS.Timeout | null>(null);
+  
   const quizDisclosure = useDisclosure();
   const summaryDisclosure = useDisclosure();
   const chatDisclosure = useDisclosure();
+  const toast = useToast();
+
+  useEffect(() => {
+    if (notebookId) {
+      fetchNotebook();
+      fetchNotes();
+    }
+  }, [notebookId]);
   
   // Set first note as active if none selected
   useEffect(() => {
@@ -40,20 +58,136 @@ const NotebookView = () => {
     }
   }, [notes, activeNote]);
 
-  const handleNoteSelect = (note: Note) => {
-    setActiveNote(note);
+  const fetchNotebook = async () => {
+    if (!notebookId) return;
+    
+    try {
+      const response = await notebooksApi.getById(notebookId);
+      setNotebook(response.notebook);
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to fetch notebook';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
+  const fetchNotes = async () => {
+    if (!notebookId) return;
+    
+    try {
+      setIsLoading(true);
+      const response = await notesApi.getByNotebook(notebookId);
+      setNotes(response.notes);
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to fetch notes';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleNoteSelect = (note: Note) => {
+    setActiveNote(note);
+    setLocalContent(note.content);
+  };
+
+  const debouncedSave = useCallback(async (content: string) => {
+    if (!activeNote) return;
+    
+    try {
+      setIsSaving(true);
+      const updatedNote = await notesApi.update(activeNote.id, {
+        content
+      });
+      
+      setNotes(prevNotes => 
+        prevNotes.map(note => 
+          note.id === activeNote.id ? updatedNote.note : note
+        )
+      );
+      setActiveNote(updatedNote.note);
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to save note';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  }, [activeNote, toast]);
+
   const handleNoteChange = (content: string) => {
-    if (activeNote) {
-      const updatedNotes = notes.map(note => note.id === activeNote.id ? {
-        ...note,
-        content
-      } : note);
-      setNotes(updatedNotes);
-      setActiveNote({
-        ...activeNote,
-        content
+    setLocalContent(content);
+    
+    // Clear existing timeout
+    if (saveTimeout) {
+      clearTimeout(saveTimeout);
+    }
+    
+    // Set new timeout for 1 second delay
+    const timeout = setTimeout(() => {
+      debouncedSave(content);
+    }, 1000);
+    
+    setSaveTimeout(timeout);
+  };
+
+  const handleCreateNote = async () => {
+    if (!notebookId) return;
+    
+    try {
+      const newNote = await notesApi.create({
+        title: 'New Note',
+        content: '',
+        notebookId: notebookId
+      });
+      
+      setNotes(prevNotes => [newNote.note, ...prevNotes]);
+      setActiveNote(newNote.note);
+      setLocalContent(newNote.note.content);
+      
+      toast({
+        title: 'Success',
+        description: 'Note created successfully',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to create note';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
       });
     }
   };
@@ -64,7 +198,7 @@ const NotebookView = () => {
       
       <Container maxW="container.xl" py={4}>
         <Heading as="h1" size="lg" mb={4} color="gray.800">
-          Mathematics 101
+          {notebook?.title || 'Loading...'}
         </Heading>
         <Grid templateColumns={{
         base: '1fr',
@@ -73,7 +207,7 @@ const NotebookView = () => {
           <GridItem>
             <Box bg={useColorModeValue('white', 'gray.700')} borderRadius="md" borderWidth="1px" borderColor={useColorModeValue('gray.200', 'gray.600')} height="calc(100vh - 200px)" overflow="auto">
               <Flex p={3} borderBottomWidth="1px" borderColor={useColorModeValue('gray.100', 'gray.600')}>
-                <Button leftIcon={<Plus size={16} />} size="sm" width="full" colorScheme="gray">
+                <Button leftIcon={<Plus size={16} />} size="sm" width="full" colorScheme="gray" onClick={handleCreateNote}>
                   New Note
                 </Button>
               </Flex>
@@ -102,13 +236,13 @@ const NotebookView = () => {
                     </Flex>
                   </Flex>
                   <Box flex="1" overflow="auto" p={4}>
-                    <NoteEditor content={activeNote.content} onChange={handleNoteChange} />
+                    <NoteEditor content={localContent || activeNote.content} onChange={handleNoteChange} />
                   </Box>
                 </> : <Flex height="100%" align="center" justify="center" direction="column">
                   <Text color="gray.500" mb={4}>
                     No note selected
                   </Text>
-                  <Button leftIcon={<Plus size={16} />} colorScheme="gray">
+                  <Button leftIcon={<Plus size={16} />} colorScheme="gray" onClick={handleCreateNote}>
                     Create a new note
                   </Button>
                 </Flex>}
