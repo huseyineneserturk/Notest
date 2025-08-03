@@ -57,27 +57,26 @@
 ### 📊 Sprint Bilgileri
 - **📅 Sprint Süresi:** 21.07.2025 - 03.08.2025
 - **🎯 Hedef Puan:** `34` Puan
-- **✅ Tamamlanan Puan:** `___` Puan
-- **📈 Tamamlanma Oranı:** `___%`
+- **✅ Tamamlanan Puan:** `34` Puan
+- **📈 Tamamlanma Oranı:** `100%`
 
 ### 📋 Sprint Backlog
 
 #### 🔥 Yüksek Öncelik
-- [ ] **[Görev 1]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
+- [ ] **[Temel Altyapı]** - `6` Puan
+  - **📝 Açıklama:*Supabase kurulumu ve auth sistemi.* 
+  - **🎯 Kabul Kriterleri:*Database bağlantısının sağlanması. Kullanıcı bilgilerinin sağlıklı bir şekilde kaydedilmesi.*
+  - **👤 Sorumlu:*Artun Şeker*
 
-- [ ] **[Görev 2]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
-
-#### ⚡ Orta Öncelik
-- [ ] **[Görev 3]** - `_` Puan
-  - **📝 Açıklama:** 
-  - **🎯 Kabul Kriterleri:**
-  - **👤 Sorumlu:**
+- [ ] **[Not Sistemi]** - `8` Puan
+  - **📝 Açıklama:*Not oluşturma, düzenleme, kaydetme.* 
+  - **🎯 Kabul Kriterleri:*Temel işlevlerin sağlanması.*
+  - **👤 Sorumlu:*Artun Şeker, Hüseyin Enes Ertürk*
+    
+- [ ] **[Quiz Sistemi]** - `6` Puan
+  - **📝 Açıklama:*Notlardan yola çıkarak quiz oluşturulması ve sonuçların kaydedilmesi.* 
+  - **🎯 Kabul Kriterleri:*Temel işlevlerin sağlanması.*
+  - **👤 Sorumlu:*Artun Şeker, Hüseyin Enes Ertürk*
 
 ### 📱 Daily Scrum
 **🗣️ Daily Scrum toplantıları:** [Platform/Zaman]
@@ -87,33 +86,28 @@
 ### 🔍 Sprint Review
 
 #### ✅ Tamamlanan İşler
-- **[Tamamlanan özellik/görev]**
-- **[Tamamlanan özellik/görev]**
+- **[Temel Altyapı]**
+- **[Not Yönetimi]**
+- **[Quiz Sistemi]**
+- **[Sonuç Sistemi]**
+- **[AI Asistanı]**
 
 #### ❌ Tamamlanamayan İşler
-- **[Tamamlanamayan görev]** - **Sebep:** [Açıklama]
 
 #### 🎯 Demo
-**📹 Demo Linki:** [Link]
 **📸 Ekran Görüntüleri:** [Klasör/Link]
 
 #### 👥 Sprint Review Katılımcıları
-- **[İsim 1]**
-- **[İsim 2]**
+- **Hüseyin Enes Ertürk**
+- **Artun Şeker**
 
 ### 🔄 Sprint Retrospective
 
 #### ✅ İyi Giden Şeyler
-- **[Pozitif geri bildirim]**
-- **[Pozitif geri bildirim]**
+- **Görev dağılımı uygun yapıldı. Proje üyeleri görevlerini uygun bir şekilde tamamladı.**
+- **Son sprintte iletişim kopukluğu yaşanmadı.**
 
 #### ❌ İyileştirilebilir Alanlar
-- **[İyileştirme önerisi]**
-- **[İyileştirme önerisi]**
-
-#### 🎯 Aksiyonlar (Sonraki Sprint için)
-- **[Aksiyon öğesi]**
-- **[Aksiyon öğesi]**
 
 </details>
 
@@ -122,57 +116,30 @@
 ## 📈 Proje Özeti
 
 ### 🎯 Genel Başarı Metrikleri
-- **📊 Toplam Tamamlanan Puan:** `___/___` (`___%`)
-- **⏱️ Toplam Süre:** `_` Hafta
-- **👥 Aktif Takım Üyesi Sayısı:** `_`
-- **🔥 En Başarılı Sprint:** Sprint `_`
+- **📊 Toplam Tamamlanan Puan:** `34/34` (`100%`)
+- **⏱️ Toplam Süre:** `1` Hafta
+- **👥 Aktif Takım Üyesi Sayısı:** `2`
+- **🔥 En Başarılı Sprint:** Sprint `3`
 
 ### 📚 Öğrenilenler
 - **[Teknik öğrenme]**
 - **[Süreç öğrenmesi]**
 - **[Takım çalışması deneyimi]**
 
-### 🚀 Gelecek Planları
-- **[V2.0 özellikleri]**
-- **[İyileştirme alanları]**
-- **[Yeni teknoloji entegrasyonları]**
-
 ---
 
 ## 📎 Ek Dökümanlar
 
 ### 🔗 Önemli Linkler
-- **🌐 Canlı Demo:** [Link]
 - **📋 Miro/Trello Board:** [Link]
 - **📹 Final Sunumu:** [Link]
-
-### 📁 Dosya Yapısı
-```
-📁 ProjectManagement/
-├── 📁 Sprint1Documents/
-│   ├── 📄 DailyScrumMeetingNotesSprint1.md
-│   ├── 📄 SprintReviewSprint1.md
-│   └── 📸 Screenshots/
-├── 📁 Sprint2Documents/
-│   ├── 📄 DailyScrumMeetingNotesSprint2.md
-│   ├── 📄 SprintReviewSprint2.md
-│   └── 📸 Screenshots/
-├── 📁 Sprint3Documents/
-│   ├── 📄 DailyScrumMeetingNotesSprint3.md
-│   ├── 📄 SprintReviewSprint3.md
-│   └── 📸 Screenshots/
-└── 📁 Sprint4Documents/
-    ├── 📄 DailyScrumMeetingNotesSprint4.md
-    ├── 📄 SprintReviewSprint4.md
-    └── 📸 Screenshots/
-```
 
 ---
 
 ## 📞 İletişim
 
 **🏢 Takım:** AI-DATA-138  
-**📧 E-posta:** huseyineneserturk@gmail.com
+**📧 E-posta:** huseyineneserturk@gmail.com - artunseker2005@gmail.com
 **📅 Son Güncelleme:** 03.08.2025
 
 ---
