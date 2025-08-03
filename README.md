@@ -79,11 +79,7 @@
   - **👤 Sorumlu:*Artun Şeker, Hüseyin Enes Ertürk*
 
 ### 📱 Daily Scrum
-**🗣️ Daily Scrum toplantıları:** [Platform/Zaman]
-
-📎 **Daily Scrum Notları:** [Dosya linki]
-
-### 🔍 Sprint Review
+**🗣️ Daily Scrum toplantıları:** [Google Meet]
 
 #### ✅ Tamamlanan İşler
 - **[Temel Altyapı]**
