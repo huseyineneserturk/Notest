@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Box, Button, Container, Flex, Grid, GridItem, Heading, Text, useColorModeValue, useDisclosure, useToast, Spinner, Center } from '@chakra-ui/react';
-import { Plus, Brain, MessageSquare, HelpCircle } from 'lucide-react';
+import { Box, Button, Container, Flex, Grid, GridItem, Heading, Text, useColorModeValue, useDisclosure, useToast, Spinner, Center, Input, IconButton } from '@chakra-ui/react';
+import { Plus, Brain, MessageSquare, HelpCircle, Edit2, Check, X } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import NoteEditor from '../components/NoteEditor';
@@ -38,6 +38,8 @@ const NotebookView = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [localContent, setLocalContent] = useState('');
   const [saveTimeout, setSaveTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editTitle, setEditTitle] = useState('');
   
   const quizDisclosure = useDisclosure();
   const summaryDisclosure = useDisclosure();
@@ -106,7 +108,19 @@ const NotebookView = () => {
   const handleNoteSelect = (note: Note) => {
     setActiveNote(note);
     setLocalContent(note.content);
+    setEditTitle(note.title);
+    setIsEditingTitle(false);
   };
+
+  const handleQuizComplete = useCallback(() => {
+    toast({
+      title: 'Quiz Completed!',
+      description: 'Your results have been saved to your performance history.',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+  }, [toast]);
 
   const debouncedSave = useCallback(async (content: string) => {
     if (!activeNote) return;
@@ -169,6 +183,8 @@ const NotebookView = () => {
       setNotes(prevNotes => [newNote.note, ...prevNotes]);
       setActiveNote(newNote.note);
       setLocalContent(newNote.note.content);
+      setEditTitle(newNote.note.title);
+      setIsEditingTitle(true); // Yeni not oluşturulduğunda başlık düzenleme modunu aç
       
       toast({
         title: 'Success',
@@ -190,6 +206,57 @@ const NotebookView = () => {
         isClosable: true,
       });
     }
+  };
+
+  const handleTitleEdit = () => {
+    if (!activeNote) return;
+    setIsEditingTitle(true);
+    setEditTitle(activeNote.title);
+  };
+
+  const handleTitleSave = async () => {
+    if (!activeNote || !editTitle.trim()) return;
+    
+    try {
+      const updatedNote = await notesApi.update(activeNote.id, {
+        title: editTitle.trim()
+      });
+      
+      setNotes(prevNotes => 
+        prevNotes.map(note => 
+          note.id === activeNote.id ? updatedNote.note : note
+        )
+      );
+      setActiveNote(updatedNote.note);
+      setIsEditingTitle(false);
+      
+      toast({
+        title: 'Success',
+        description: 'Note title updated successfully',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to update note title';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleTitleCancel = () => {
+    if (activeNote) {
+      setEditTitle(activeNote.title);
+    }
+    setIsEditingTitle(false);
   };
 
   return (
@@ -218,9 +285,52 @@ const NotebookView = () => {
             <Box bg={useColorModeValue('white', 'gray.700')} borderRadius="md" borderWidth="1px" borderColor={useColorModeValue('gray.200', 'gray.600')} height="calc(100vh - 200px)" display="flex" flexDirection="column">
               {activeNote ? <>
                   <Flex p={3} borderBottomWidth="1px" borderColor={useColorModeValue('gray.100', 'gray.600')} justify="space-between" align="center">
-                    <Heading as="h2" size="md" color="gray.800">
-                      {activeNote.title}
-                    </Heading>
+                    {isEditingTitle ? (
+                      <Flex align="center" gap={2} flex="1">
+                        <Input
+                          value={editTitle}
+                          onChange={(e) => setEditTitle(e.target.value)}
+                          size="md"
+                          fontWeight="semibold"
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              handleTitleSave();
+                            }
+                            if (e.key === 'Escape') {
+                              handleTitleCancel();
+                            }
+                          }}
+                          autoFocus
+                        />
+                        <IconButton
+                          icon={<Check size={16} />}
+                          size="sm"
+                          colorScheme="green"
+                          onClick={handleTitleSave}
+                          aria-label="Save title"
+                        />
+                        <IconButton
+                          icon={<X size={16} />}
+                          size="sm"
+                          colorScheme="red"
+                          onClick={handleTitleCancel}
+                          aria-label="Cancel edit"
+                        />
+                      </Flex>
+                    ) : (
+                      <Flex align="center" gap={2} flex="1">
+                        <Heading as="h2" size="md" color="gray.800">
+                          {activeNote.title}
+                        </Heading>
+                        <IconButton
+                          icon={<Edit2 size={14} />}
+                          size="sm"
+                          variant="ghost"
+                          onClick={handleTitleEdit}
+                          aria-label="Edit title"
+                        />
+                      </Flex>
+                    )}
                     <Flex gap={2}>
                       <Button leftIcon={<HelpCircle size={16} />} size="sm" colorScheme="gray" bg="gray.800" color="white" _hover={{
                     bg: 'gray.700'
@@ -250,7 +360,12 @@ const NotebookView = () => {
           </GridItem>
         </Grid>
       </Container>
-      <QuizModal isOpen={quizDisclosure.isOpen} onClose={quizDisclosure.onClose} note={activeNote} />
+              <QuizModal 
+          isOpen={quizDisclosure.isOpen} 
+          onClose={quizDisclosure.onClose} 
+          note={activeNote}
+          onQuizComplete={handleQuizComplete}
+        />
       <SummaryDrawer isOpen={summaryDisclosure.isOpen} onClose={summaryDisclosure.onClose} note={activeNote} />
       <ChatDrawer isOpen={chatDisclosure.isOpen} onClose={chatDisclosure.onClose} note={activeNote} />
     </Box>

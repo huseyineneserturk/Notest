@@ -56,16 +56,6 @@ const FeatureCard = ({ icon, title, description, stats }: {
   );
 };
 
-const StatCard = ({ number, label }: { number: string; label: string }) => (
-  <VStack spacing={1}>
-    <Text fontSize="3xl" fontWeight="bold" color="gray.800">
-      {number}
-    </Text>
-    <Text fontSize="sm" color="gray.600" textAlign="center">
-      {label}
-    </Text>
-  </VStack>
-);
 
 const LandingPage = () => {
   return (
@@ -163,23 +153,6 @@ const LandingPage = () => {
         </Container>
       </Box>
 
-      {/* Stats Section */}
-      <Box 
-        as="section" 
-        py={16} 
-        bg={useColorModeValue('gray.50', 'gray.700')}
-        borderY="1px"
-        borderColor={useColorModeValue('gray.200', 'gray.600')}
-      >
-        <Container maxW="container.lg">
-          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={8}>
-            <StatCard number="10K+" label="Active Students" />
-            <StatCard number="50K+" label="Quizzes Generated" />
-            <StatCard number="95%" label="Success Rate" />
-            <StatCard number="24/7" label="AI Support" />
-          </SimpleGrid>
-        </Container>
-      </Box>
       
       {/* Features Section */}
       <Box as="section" py={20} bg={useColorModeValue('white', 'gray.800')}>

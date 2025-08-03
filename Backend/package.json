@@ -27,8 +27,7 @@
   "devDependencies": {
     "nodemon": "^3.0.1",
     "jest": "^29.6.2",
-    "supertest": "^6.3.3",
-    "@supabase/cli": "^1.100.0"
+    "supertest": "^6.3.3"
   },
   "keywords": ["notest", "api", "backend", "education", "ai", "supabase"],
   "author": "Notest Team",

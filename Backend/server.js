@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5001;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174', 'http://localhost:5175'],
+  origin: ['http://localhost:5173'], // Frontend Vite server
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -26,26 +26,21 @@ const testSupabaseConnection = async () => {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
     
-    if (!supabaseUrl || !supabaseKey) {
-      console.log('Supabase connection error: Missing environment variables');
-      return;
-    }
-    
     const supabase = createClient(supabaseUrl, supabaseKey);
     const { data, error } = await supabase.from('users').select('count').limit(1);
     
     if (error) {
-      console.log('Supabase connection error:', {
+      console.log('❌ Supabase connection error:', {
         message: error.message,
         details: error.details,
         hint: error.hint,
         code: error.code
       });
     } else {
-      console.log('Supabase connected successfully');
+      console.log('✅ Supabase connected successfully');
     }
   } catch (error) {
-    console.log('Supabase connection error:', {
+    console.log('❌ Supabase connection error:', {
       message: error.message,
       details: error.stack,
       hint: '',

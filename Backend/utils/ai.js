@@ -4,10 +4,57 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
 
 const generateQuiz = async (noteContent, questionCount = 5, difficulty = 'medium') => {
   try {
-    console.log('Generating quiz with:', { noteContent: noteContent.substring(0, 100), questionCount, difficulty });
+    console.log('🤖 Generating quiz with Gemini 2.5 Flash:', { contentLength: noteContent.length, questionCount, difficulty });
     
-    // Smart mock quiz based on note content
-    const words = noteContent.toLowerCase().split(/\s+/);
+    if (!process.env.GOOGLE_AI_API_KEY) {
+      throw new Error('GOOGLE_AI_API_KEY is not configured');
+    }
+
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    
+    const prompt = `Bu not içeriğinden ${questionCount} adet ${difficulty} seviyesinde çoktan seçmeli soru oluştur.
+    
+Not İçeriği:
+"""
+${noteContent}
+"""
+
+Kurallar:
+- Her sorunun 4 şıkkı olsun (A, B, C, D)
+- Sorular not içeriğindeki anahtar bilgilerden türetilsin
+- Doğru cevabı açıkça belirt
+- Her soru için açıklama ekle
+
+JSON formatında yanıtla:
+{
+  "questions": [
+    {
+      "question": "Soru metni",
+      "options": ["A şıkkı", "B şıkkı", "C şıkkı", "D şıkkı"],
+      "correctAnswer": "A",
+      "explanation": "Açıklama metni",
+      "difficulty": "${difficulty}",
+      "category": "konu kategorisi"
+    }
+  ]
+}`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    
+    console.log('✅ Gemini 2.5 Flash response received');
+    
+    try {
+      // JSON parsing
+      const cleanedText = text.replace(/```json\n?|\n?```/g, '').trim();
+      const quizData = JSON.parse(cleanedText);
+      
+      return quizData;
+    } catch (parseError) {
+      console.log('❌ JSON parse error, using fallback');
+      // Fallback to mock quiz if JSON parsing fails
+      const words = noteContent.toLowerCase().split(/\s+/);
     const wordCount = words.length;
     const hasProgramming = noteContent.toLowerCase().includes('programming') || noteContent.toLowerCase().includes('code');
     const hasTechnology = noteContent.toLowerCase().includes('technology') || noteContent.toLowerCase().includes('tech');
@@ -94,52 +141,9 @@ const generateQuiz = async (noteContent, questionCount = 5, difficulty = 'medium
       ]
     };
     
-    console.log('Returning mock quiz data');
-    return mockQuiz;
-    
-    /* Original AI code (commented due to quota limits)
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
-
-    const prompt = `
-Bu metinden ${questionCount} adet çoktan seçmeli soru oluştur. 
-Zorluk seviyesi: ${difficulty}
-Her sorunun 4 şıkkı olsun ve doğru cevabı açıkça belirt. 
-Sorular metnin farklı kısımlarından ve anahtar bilgilerden türetilsin.
-
-Metin: ${noteContent}
-
-JSON formatında yanıtla:
-{
-  "questions": [
-    {
-      "question": "Soru metni",
-      "options": ["A", "B", "C", "D"],
-      "correctAnswer": "A",
-      "explanation": "Açıklama",
-      "difficulty": "medium",
-      "category": "kategori"
+      console.log('Returning mock quiz data');
+      return mockQuiz;
     }
-  ]
-}
-`;
-
-    console.log('Sending prompt to AI...');
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    
-    console.log('AI response:', text.substring(0, 200));
-    
-    // Extract JSON from response
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Invalid AI response format');
-    }
-    
-    const parsed = JSON.parse(jsonMatch[0]);
-    console.log('Parsed quiz:', parsed);
-    return parsed;
-    */
   } catch (error) {
     console.error('AI Quiz generation error:', error);
     throw new Error(`Failed to generate quiz questions: ${error.message}`);
@@ -148,7 +152,8 @@ JSON formatında yanıtla:
 
 const generateSummary = async (noteContent) => {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+    console.log('🤖 Generating summary with Gemini 2.5 Flash:', { contentLength: noteContent.length });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const prompt = `
 Bu metni özetle ve anahtar noktaları çıkar. 
@@ -184,7 +189,8 @@ JSON formatında yanıtla:
 
 const generateChatResponse = async (noteContent, userQuestion) => {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+    console.log('🤖 Generating chat response with Gemini 2.5 Flash:', { contentLength: noteContent.length, questionLength: userQuestion.length });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const prompt = `
 Bu not içeriğine dayanarak kullanıcının sorusunu yanıtla.
@@ -209,7 +215,8 @@ Yanıtını Türkçe olarak ver ve not içeriğinden referanslar göster.
 
 const generateExplanation = async (question, userAnswer, correctAnswer, noteContent) => {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+    console.log('🤖 Generating explanation with Gemini 2.5 Flash');
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const prompt = `
 Kullanıcı bu soruyu yanlış cevapladı. Neden yanlış olduğunu açıkla ve doğru cevabı ver.

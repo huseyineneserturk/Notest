@@ -103,7 +103,9 @@ router.post('/generate', auth, [
 
   res.status(201).json({
     message: 'Quiz generated successfully',
-    quiz
+    quiz,
+    quizId: quiz.id,
+    id: quiz.id
   });
 }));
 

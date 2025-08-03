@@ -67,7 +67,7 @@ const Header = () => {
       <Container maxW="container.xl" height="100%">
         <Flex justify="center" align="center" height="100%" position="relative">
           {/* Logo - Centered */}
-          <RouterLink to="/">
+          <RouterLink to={isAuthenticated ? "/dashboard" : "/"}>
             <Image 
               src="/Resources/Notest_Logo.png" 
               alt="Notest Logo" 

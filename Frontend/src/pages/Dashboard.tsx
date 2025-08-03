@@ -33,7 +33,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Header from '../components/Header';
 import NotebookCard from '../components/NotebookCard';
 import { useAuth } from '../contexts/AuthContext';
-import { notebooksApi, ApiError } from '../utils/api';
+import { notebooksApi, authApi, ApiError } from '../utils/api';
 
 const StatsCard = ({ icon, title, value, subtitle, trend }: {
   icon: any;
@@ -89,6 +89,7 @@ const Dashboard = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [notebooks, setNotebooks] = useState<any[]>([]);
+  const [userStats, setUserStats] = useState<any>(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -99,18 +100,25 @@ const Dashboard = () => {
   const toast = useToast();
 
   useEffect(() => {
-    fetchNotebooks();
+    fetchDashboardData();
   }, []);
 
-  const fetchNotebooks = async () => {
+  const fetchDashboardData = async () => {
     try {
       setIsLoading(true);
-      const response = await notebooksApi.getAll();
-      setNotebooks(response.notebooks);
+      
+      // Fetch both notebooks and user stats in parallel
+      const [notebooksResponse, statsResponse] = await Promise.all([
+        notebooksApi.getAll(),
+        authApi.getStats()
+      ]);
+      
+      setNotebooks(notebooksResponse.notebooks);
+      setUserStats(statsResponse);
     } catch (error) {
       const errorMessage = error instanceof ApiError 
         ? error.message 
-        : 'Failed to fetch notebooks';
+        : 'Failed to fetch dashboard data';
       
       toast({
         title: 'Error',
@@ -176,11 +184,13 @@ const Dashboard = () => {
     }
   };
 
-  const totalNotes = notebooks.reduce((sum, notebook) => sum + (notebook.stats?.noteCount || 0), 0);
-  const totalQuizzes = notebooks.reduce((sum, notebook) => sum + (notebook.stats?.quizCount || 0), 0);
-  const averageScore = notebooks.length > 0 ? Math.round(
+  // Use real user stats if available, fallback to notebook-based calculation
+  const totalNotes = userStats?.totalNotes ?? notebooks.reduce((sum, notebook) => sum + (notebook.stats?.noteCount || 0), 0);
+  const totalQuizzes = userStats?.quizzesThisMonth ?? notebooks.reduce((sum, notebook) => sum + (notebook.stats?.quizCount || 0), 0);
+  const averageScore = userStats?.averageScore ?? (notebooks.length > 0 ? Math.round(
     notebooks.reduce((sum, notebook) => sum + (notebook.stats?.lastQuizScore || 0), 0) / notebooks.length
-  ) : 0;
+  ) : 0);
+  const studyStreak = userStats?.studyStreak ?? 0;
 
   return (
     <Box width="100%" minHeight="100vh" bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -206,28 +216,40 @@ const Dashboard = () => {
                 title="Total Notes"
                 value={totalNotes.toString()}
                 subtitle="Across all notebooks"
-                trend={{ value: 12, isPositive: true }}
+                trend={userStats?.trends ? { 
+                  value: Math.abs(userStats.trends.notesGrowth), 
+                  isPositive: userStats.trends.notesGrowth >= 0 
+                } : undefined}
               />
               <StatsCard
                 icon={Target}
                 title="Quizzes Taken"
                 value={totalQuizzes.toString()}
                 subtitle="This month"
-                trend={{ value: 8, isPositive: true }}
+                trend={userStats?.trends ? { 
+                  value: Math.abs(userStats.trends.quizzesGrowth), 
+                  isPositive: userStats.trends.quizzesGrowth >= 0 
+                } : undefined}
               />
               <StatsCard
                 icon={TrendingUp}
                 title="Average Score"
                 value={`${averageScore}%`}
                 subtitle="Last 30 days"
-                trend={{ value: 5, isPositive: true }}
+                trend={userStats?.trends ? { 
+                  value: Math.abs(userStats.trends.scoreGrowth), 
+                  isPositive: userStats.trends.scoreGrowth >= 0 
+                } : undefined}
               />
               <StatsCard
                 icon={Clock}
                 title="Study Streak"
-                value="7 days"
+                value={`${studyStreak} days`}
                 subtitle="Keep it going!"
-                trend={{ value: 15, isPositive: true }}
+                trend={userStats?.trends ? { 
+                  value: Math.abs(userStats.trends.streakGrowth), 
+                  isPositive: userStats.trends.streakGrowth >= 0 
+                } : undefined}
               />
             </SimpleGrid>
           </VStack>

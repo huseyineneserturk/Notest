@@ -127,6 +127,39 @@ export const authApi = {
       body: JSON.stringify(data),
     });
   },
+
+  getStats: async () => {
+    return makeRequest<{
+      totalNotes: number;
+      quizzesThisMonth: number;
+      averageScore: number;
+      studyStreak: number;
+      trends: {
+        notesGrowth: number;
+        quizzesGrowth: number;
+        scoreGrowth: number;
+        streakGrowth: number;
+      };
+    }>('/auth/stats');
+  },
+
+  getPerformanceHistory: async () => {
+    return makeRequest<{
+      quizHistory: Array<{
+        id: string;
+        notebook: string;
+        noteTitle: string;
+        date: string;
+        score: string;
+        passed: boolean;
+        totalQuestions: number;
+      }>;
+      performanceData: Array<{
+        name: string;
+        score: number;
+      }>;
+    }>('/auth/performance');
+  },
 };
 
 // Notebooks API

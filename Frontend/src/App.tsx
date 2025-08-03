@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Box, Center, VStack, Text, Button, useColorModeValue } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Home } from 'lucide-react';
-import { AuthProvider } from './contexts/AuthContext';
+
 import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
@@ -42,7 +42,6 @@ const NotFoundPage = () => (
 
 export function App() {
   return (
-    <AuthProvider>
     <Router>
       <Box width="100%" minHeight="100vh">
         <Routes>
@@ -65,6 +64,5 @@ export function App() {
         </Routes>
       </Box>
     </Router>
-    </AuthProvider>
   );
 }

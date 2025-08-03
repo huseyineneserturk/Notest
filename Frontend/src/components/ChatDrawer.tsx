@@ -13,9 +13,12 @@ import {
   Button,
   InputGroup,
   InputRightElement,
-  useColorModeValue
+  useColorModeValue,
+  useToast,
+  Spinner
 } from '@chakra-ui/react';
 import { Send } from 'lucide-react';
+import { aiApi, ApiError } from '../utils/api';
 
 interface Message {
   sender: 'user' | 'ai';
@@ -42,26 +45,57 @@ const ChatDrawer = ({ isOpen, onClose, note }: ChatDrawerProps) => {
     }
   ]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+    if (!input.trim() || !note?.id || isLoading) return;
+
+    const userMessage = input.trim();
+    setInput('');
 
     // Add user message
     const newUserMessage: Message = {
       sender: 'user',
-      text: input
+      text: userMessage
     };
     setMessages(prev => [...prev, newUserMessage]);
-    setInput('');
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      
+      // Call real AI API
+      const response = await aiApi.chat(note.id, userMessage);
+      
       const aiResponse: Message = {
         sender: 'ai',
-        text: "I'm analyzing your question about your notes. Based on the content you've provided, let me help you understand this topic better. Could you be more specific about what you'd like to know?"
+        text: response.response
       };
+      
       setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
+      
+    } catch (error) {
+      const errorMessage = error instanceof ApiError 
+        ? error.message 
+        : 'Failed to get AI response';
+      
+      const errorResponse: Message = {
+        sender: 'ai',
+        text: `Sorry, I encountered an error: ${errorMessage}. Please try again.`
+      };
+      
+      setMessages(prev => [...prev, errorResponse]);
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -117,12 +151,13 @@ const ChatDrawer = ({ isOpen, onClose, note }: ChatDrawerProps) => {
           >
             <InputGroup>
               <Input
-                placeholder="Ask a question about your notes..."
+                placeholder={isLoading ? "AI is thinking..." : "Ask a question about your notes..."}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                _focus={{ borderColor: 'gray.500' }}
+                _focus={{ borderColor: 'blue.500' }}
                 bg={useColorModeValue('white', 'gray.600')}
+                isDisabled={isLoading}
               />
               <InputRightElement>
                 <Button
@@ -130,13 +165,23 @@ const ChatDrawer = ({ isOpen, onClose, note }: ChatDrawerProps) => {
                   size="sm"
                   onClick={handleSend}
                   variant="ghost"
-                  _hover={{ bg: 'gray.100' }}
-                  isDisabled={!input.trim()}
+                  _hover={{ bg: 'blue.100' }}
+                  isDisabled={!input.trim() || isLoading}
+                  isLoading={isLoading}
                 >
-                  <Send size={16} />
+                  {isLoading ? <Spinner size="sm" /> : <Send size={16} />}
                 </Button>
               </InputRightElement>
             </InputGroup>
+            
+            {isLoading && (
+              <Flex align="center" justify="center" mt={2}>
+                <Spinner size="sm" color="blue.500" mr={2} />
+                <Text fontSize="sm" color="gray.500">
+                  AI is analyzing your note...
+                </Text>
+              </Flex>
+            )}
           </Box>
         </DrawerBody>
       </DrawerContent>
