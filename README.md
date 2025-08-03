@@ -1,4 +1,4 @@
-# 📚 Notest - Gemini Not ve Quiz Asistanı
+# 📚 Notest - Not ve Quiz Asistanı
 
 ## 👥 Takım Bilgileri
 **Takım Adı:** AI-DATA-138
