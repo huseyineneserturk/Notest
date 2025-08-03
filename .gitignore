@@ -1,3 +1,47 @@
+# Ortam değişkenleri
 .env
+.env.local
+.env.production
+
+# Sistem dosyaları
 .DS_Store
-node_modules
+Thumbs.db
+
+# Bağımlılıklar
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build klasörleri
+dist/
+build/
+.vite/
+
+# IDE dosyaları
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log dosyaları
+*.log
+logs/
+
+# Cache klasörleri
+.cache/
+.temp/
+
+# Backup dosyaları
+*.tar.gz
+*.zip
+*.rar
+
+# OS oluşturulan dosyalar
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

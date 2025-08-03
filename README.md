@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="Resources/Notest_Logo.png" alt="Notest Logo" width="200" />
+</div>
+
 # 📚 Notest - Gemini Not ve Quiz Asistanı
 
 ## 👥 Takım Bilgileri
@@ -95,7 +99,25 @@
 
 #### 🎯 Demo
 **📹 Demo Linki:** [Link]
-**📸 Ekran Görüntüleri:** [Klasör/Link]
+**📸 Ekran Görüntüleri:**
+
+<div align="center">
+  <img src="Resources/1.png" alt="Ekran Görüntüsü 1" width="300" />
+  <img src="Resources/2.png" alt="Ekran Görüntüsü 2" width="300" />
+  <img src="Resources/3.png" alt="Ekran Görüntüsü 3" width="300" />
+</div>
+
+<div align="center">
+  <img src="Resources/4.png" alt="Ekran Görüntüsü 4" width="300" />
+  <img src="Resources/5.png" alt="Ekran Görüntüsü 5" width="300" />
+  <img src="Resources/6.png" alt="Ekran Görüntüsü 6" width="300" />
+</div>
+
+<div align="center">
+  <img src="Resources/7.png" alt="Ekran Görüntüsü 7" width="300" />
+  <img src="Resources/8.png" alt="Ekran Görüntüsü 8" width="300" />
+  <img src="Resources/9.png" alt="Ekran Görüntüsü 9" width="300" />
+</div>
 
 #### 👥 Sprint Review Katılımcıları
 - **[İsim 1]**
@@ -143,8 +165,12 @@
 
 ### 🔗 Önemli Linkler
 - **🌐 Canlı Demo:** [Link]
-- **📋 Miro/Trello Board:** [Link]
-- **📹 Final Sunumu:** [Link]
+- **📋 Miro/Trello Board:**
+
+<div align="center">
+  <img src="Resources/Trello.png" alt="Trello Board" width="600" />
+</div>
+- **📹 Tanıtım Videosu:** [YouTube - Notest Tanıtım Videosu](https://www.youtube.com/watch?v=P3YZLxeOlL0)
 
 ### 📁 Dosya Yapısı
 ```
